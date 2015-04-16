@@ -1,1 +1,159 @@
 {% extends "reports/base.html" %}
+{% load staticfiles %}
+{% block navbar-header %}
+<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+</button>
+<a class="navbar-brand" href="#">Dashboard</a>
+{% endblock %}
+
+
+{% block navbar-collapse %}
+ <ul class="nav navbar-nav navbar-right">
+    <li class="dropdown">
+        <a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#"><i class="glyphicon glyphicon-user"></i> Admin <span class="caret"></span></a>
+        <ul id="g-account-menu" class="dropdown-menu" role="menu">
+            <li><a href="#">My Profile</a></li>
+        </ul>
+    </li>
+    <li><a href="#"><i class="glyphicon glyphicon-lock"></i> Logout</a></li>
+</ul>
+{% endblock %}
+
+{% block container-fluid %}
+<div class="row">
+    <div class="col-sm-3">
+        <!-- Left column -->
+        <a href="#"><strong><i class="glyphicon glyphicon-wrench"></i> Tools</strong></a>
+
+        <hr>
+
+        <ul class="nav nav-stacked">
+        	<li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#menu2" class="" aria-expanded="true"> Reports <i class="glyphicon glyphicon-chevron-down"></i></a>
+
+                <ul class="nav nav-stacked collapse in" id="menu2" aria-expanded="true">
+                    <li><a href="#">Icinga status</a>
+                    </li>
+                    <li><a href="#">Alerts</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#userMenu">Settings <i class="glyphicon glyphicon-chevron-down"></i></a>
+                <ul class="nav nav-stacked collapse in" id="userMenu">
+                    <li class="active"> <a href="#"><i class="glyphicon glyphicon-home"></i> Home</a></li>
+                    <li><a href="#"><i class="glyphicon glyphicon-cog"></i> Options</a></li>
+                    <li><a href="#"><i class="glyphicon glyphicon-off"></i> Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+        <hr>
+    </div>
+    <!-- /col-3 -->
+    <div class="col-sm-9">
+
+        <!-- column 2 -->
+        <ul class="list-inline pull-right">
+            <li><a href="#"><i class="glyphicon glyphicon-cog"></i></a></li>
+            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="glyphicon glyphicon-comment"></i><span class="count">3</span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">1. Is there a way..</a></li>
+                    <li><a href="#">2. Hello, admin. I would..</a></li>
+                    <li><a href="#"><strong>All messages</strong></a></li>
+                </ul>
+            </li>
+            <li><a href="#"><i class="glyphicon glyphicon-user"></i></a></li>
+            <li><a title="Add Widget" data-toggle="modal" href="#addWidgetModal"><span class="glyphicon glyphicon-plus-sign"></span> Add Widget</a></li>
+        </ul>
+        <a href="#"><strong><i class="glyphicon glyphicon-dashboard"></i> My Dashboard</strong></a>
+        <hr>
+
+        <div class="row">
+            <!-- center left-->
+            
+            <!--/col-->
+            
+            <div class="col-md-12">
+
+                <div class="btn-group btn-group-justified">
+                    <a href="#" class="btn btn-primary col-sm-3">
+                        <i class="glyphicon glyphicon-plus"></i>
+                        <br> Service
+                    </a>
+                    <a href="#" class="btn btn-primary col-sm-3">
+                        <i class="glyphicon glyphicon-cloud"></i>
+                        <br> Cloud
+                    </a>
+                    <a href="#" class="btn btn-primary col-sm-3">
+                        <i class="glyphicon glyphicon-cog"></i>
+                        <br> Tools
+                    </a>
+                    <a href="#" class="btn btn-primary col-sm-3">
+                        <i class="glyphicon glyphicon-question-sign"></i>
+                        <br> Help
+                    </a>
+                </div>
+                <hr>
+
+                
+				<div class="table-responsive">
+                    <table class="table table-striped">
+                    	<thead>
+                            <tr>
+                        	{% for cell in header %}
+                            	<th>{{cell}}</th>
+                            {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                    	{% for row in formatted_rows %}
+                        	<tr>
+                            {% for cell in row %}
+                            	<td>{{cell}}</td>
+                            {% endfor %}
+                            </tr>
+						{% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div><!--/col-span-6-->
+
+        </div>
+        <!--/row-->
+    </div>
+    <!--/col-span-9-->
+</div>
+<div class="push"></div> 
+{% endblock %}
+
+{% block footer %}
+This Bootstrap 3 dashboard layout is compliments of <a href="http://www.bootply.com/85850"><strong>Bootply.com</strong></a>
+{% endblock %}
+
+{% block modal %}
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="modal-title">Add Widget</h4>
+        </div>
+        <div class="modal-body">
+            <p>Add a widget stuff here..</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#" data-dismiss="modal" class="btn">Close</a>
+            <a href="#" class="btn btn-primary">Save changes</a>
+        </div>
+    </div>
+    <!-- /.modal-content -->
+</div>
+<!-- /.modal-dalog -->
+{% endblock %}
+
+
+{% block script %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+<script src="{% static 'reports/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'reports/js/scripts.js' %}"></script>
+{% endblock %}
